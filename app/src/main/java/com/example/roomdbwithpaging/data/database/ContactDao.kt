@@ -1,6 +1,5 @@
 package com.example.roomdbwithpaging.data.database
 
-import androidx.paging.DataSource
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -17,6 +16,6 @@ interface ContactDao {
     @Query("SELECT * FROM contacts ORDER BY _id ASC")
     fun getContacts(): PagingSource<Int, ContactItem>
 
-    @Query("SELECT * FROM contacts ORDER BY _id ASC LIMIT :limit OFFSET :offset")
-    suspend fun getContactList(limit: Int, offset: Int): List<ContactItem>
+    @Query("SELECT * FROM contacts WHERE name LIKE :query ORDER BY _id ASC")
+    fun getFilteredContacts(query: String): PagingSource<Int, ContactItem>
 }
